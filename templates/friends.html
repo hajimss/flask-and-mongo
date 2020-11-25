@@ -1,0 +1,32 @@
+{% extends  "base.html" %}
+{% block title %}User{% endblock %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<table class="table table-sm">
+    <thead class='thead-dark'>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col"></th>
+    </thead>
+    {% for row in rows %}
+    <tr>
+        <td>{{row['name']}}</td>
+        <td>{{row['lastName']}}</td>
+        <td>
+            <form action="#" method="GET">
+                <a href="{{url_for('deleteuser', name=row.name)}}"><input type="button" class="btn btn-danger mr-right" name="name" value="Cancelled"></a>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends  "base.html" %}
+{% block title %}User{% endblock %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<p>Ayoooo hi there, {{name}}</p>
+
+<a href="{{url_for("create_user")}}"><button type="submit">Create new user</button></a>
+
+<a href="{{url_for("logout")}}"><button type="submit" value="logout">Logout</button></a>
+{% endblock %}

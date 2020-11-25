@@ -1,0 +1,23 @@
+{% extends  "base.html" %}
+{% block title %}User{% endblock %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<p>Ayoooo let's create a user</p>
+
+<form action="#" method="POST">
+    <p>First Name</p>
+    <input type="text" name="name" placeholder="first name">
+    <p>Last Name</p>
+    <input type="text" name="lastName" placeholder="last name">
+    <button type="submit" value="submit">Submit</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="div1"></div>
+
+</body>
+
+<script>
+
+    // example of appending
+    for (let index = 0; index < 3; index++) {
+        $("#div1").append("<h1>Hazim</h1>")
+    }
+
+    // GET request and appending
+    for (let i = 0; i < 10; i++) {
+        $.get(`https://randomuser.me/api?id=${i}`, function (data) {
+
+            // check the stucture of the response here : https://randomuser.me/api?id=1
+            name = data.results[0].name.first
+            $("#div1").append(`<h1>${name}</h1>`)
+        })
+    }
+
+</script> 
+
+</html>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Journal{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h3>Journal Posts</h3>
+
+<div class="row">
+    <div class="col-sm-8">
+        
+        {% for post in posts|reverse %}
+        
+        <div class="card text-left">
+            <img class="card-img-top" src="holder.js/100px180/" alt="">
+            <div class="card-body">
+              <h4 class="card-title">{{post['date']}}</h4>
+              <p class="card-text">{{post['content']}}</p>
+            </div>
+          </div>
+
+        {% endfor %}
+    </div>
+    <div class="col-sm-4">
+        <form action="#" method="POST">
+        <div class="form-group">
+          <label for="">New Post</label>
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" name="content" placeholder="What have you learnt today?">
+          </div>
+          <button type="submit">Post</button>
+          <small id="helpId" class="form-text text-muted">Help text</small>
+        </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
