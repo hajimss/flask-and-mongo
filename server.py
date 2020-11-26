@@ -16,13 +16,8 @@ app.config['SECRET_KEY'] = SECRET_KEY
 # connection to mongo
 
 try:
-    #client = pymongo.MongoClient(
-    #    host="localhost",
-    #    port=27017,
-    #    serverSelectionTimeoutMS=1000,
-    #)
-
     MONGO_URL = os.environ['MONGO_URL']
+    print(MONGO_URL)
     client = pymongo.MongoClient(MONGO_URL)
     db = client.test
 
@@ -79,8 +74,6 @@ def create_user():
                     }
             dbResponse = db.users.insert_one(user)
             print(dbResponse.inserted_id)
-            #for attr in dir(dbResponse):
-            #    print(attr)
             Response(
                 response=json.dumps({
                     "message": "user created", 
@@ -181,9 +174,11 @@ def journal():
 
         elif request.method == 'POST':
             t1 = datetime.now()
+            full_date = t1.strftime("%d") + " " + t1.strftime("%B") + " " + t1.strftime("%Y")
             post = {
                 'content':request.form['content'],
-                'date': t1
+                'date': t1,
+                'full_date': full_date
             }
             dbResponse = db.posts.insert_one(post)
             print(post)

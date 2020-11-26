@@ -18,7 +18,13 @@
         <div class="card text-left">
             <img class="card-img-top" src="holder.js/100px180/" alt="">
             <div class="card-body">
-              <h4 class="card-title">{{post['date']}}</h4>
+              <h4 class="card-title">
+                {% if 'full_date' in post %}
+                {{post['full_date']}}
+                {% else %}
+                {{post['date']}}
+                {% endif %}
+              </h4>
               <p class="card-text">{{post['content']}}</p>
             </div>
           </div>
