@@ -22,8 +22,10 @@ try:
     #    serverSelectionTimeoutMS=1000,
     #)
 
+    
     client = pymongo.MongoClient(MONGO_URL)
     db = client.test
+
     client.server_info() # trigger if cannot connect to the db
 except:
     print("ERROR - cannot connect to the DB")
