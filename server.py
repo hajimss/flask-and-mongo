@@ -22,8 +22,8 @@ try:
     #    serverSelectionTimeoutMS=1000,
     #)
 
-    
-    client = pymongo.MongoClient(f"mongodb+srv://hajimss:{PASSWORD}@cluster0.e4t2u.mongodb.net/?retryWrites=true&w=majority")
+    MONGO_URL = os.environ['MONGO_URL']
+    client = pymongo.MongoClient(MONGO_URL)
     db = client.test
 
     client.server_info() # trigger if cannot connect to the db
