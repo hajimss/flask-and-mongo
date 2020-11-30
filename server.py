@@ -4,7 +4,6 @@ import pymongo
 import dns
 import motor
 import json
-import pandas as pd
 from bson.objectid import ObjectId
 import os
 import sys
