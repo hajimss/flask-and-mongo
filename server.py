@@ -228,7 +228,7 @@ def expand_csv(csv):
     if request.method == "GET":
         csv_contents = db.csv.find_one({"name":csv})
         print(csv_contents)
-        return render_template("expand_csv.html", contents=csv_contents["csv"])
+        return render_template("expand_csv.html", contents=csv_contents["raw_csv"])
     return render_template("expand_csv.html")
 
 ###############################################
