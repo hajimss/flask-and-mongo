@@ -228,7 +228,13 @@ def expand_csv(csv):
     if request.method == "GET":
         csv_contents = db.csv.find_one({"name":csv})
         print(csv_contents)
-        return render_template("expand_csv.html", contents=csv_contents["raw_csv"])
+        text = csv_contents["raw_csv"]
+        f = open("csv_file.csv", "w")
+        f.write(text)
+        df = pd.read_csv("csv_file.csv")
+        print(df.to_html())
+        #return render_template("expand_csv.html", contents=csv_contents["raw_csv"])
+        return render_template("expand_csv.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
     return render_template("expand_csv.html")
 
 ###############################################
