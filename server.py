@@ -11,9 +11,6 @@ import sys
 app = Flask(__name__)
 #app.permanent_session_lifetime = timedelta(minutes=5)
 
-SECRET_KEY = os.urandom(32)
-app.config['SECRET_KEY'] = SECRET_KEY
-
 # connection to mongo
 
 try:
@@ -191,8 +188,6 @@ def journal():
         flash("You are not logged in")
         return redirect(url_for("home"))
 ###############################################
-
-app.config["CSV_UPLOADS"] = "/Users/hajimss/Desktop/flask projects/flaskXmongo/flask-and-mongo/uploads"
 
 @app.route("/upload_csv", methods=['GET','POST'])
 def upload_csv():
