@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "f2env/bin/python3",
     "compile-hero.disable-compile-files-on-did-save-code": true
+=======
+    "python.pythonPath": "f3env/bin/python3"
+>>>>>>> 6eeb48a37e2f07bff017d1edf35a843c5ffbc42c
 }
