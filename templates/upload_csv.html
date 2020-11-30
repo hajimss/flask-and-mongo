@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Upload your CSV here{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h3>Upload a file here</h3>
+    <form action="#" method="POST" enctype="multipart/form-data">
+        
+        <div class="form-group">
+          <label for="">Select csv</label>
+          <div class="custom-file">
+            <input type="file" name="csv" id="csv" class="custom-file-input" placeholder="Select csv file" aria-describedby="helpId">
+            <label class="custom-file-label">Choose file...</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload your csv</button>
+        
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Date Time</th>
+            </tr>
+        </thead>
+        {% for file in files %}
+        <tbody>
+            <tr>
+                <td scope="row"><a href="{{url_for("expand_csv", csv=file.name)}}">{{file.name}}</a></td>
+                <td>{{file.full_date_time}}</td>
+            </tr>
+            <!--
+            <tr>
+                <td scope="row">Test1</td>
+                <td></td>
+                <td></td>
+            </tr>
+            -->
+        </tbody>
+        {% endfor %}
+    </table>
+    
+{% endblock %}

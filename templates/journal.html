@@ -19,8 +19,8 @@
             <img class="card-img-top" src="holder.js/100px180/" alt="">
             <div class="card-body">
               <h4 class="card-title">
-                {% if 'full_date' in post %}
-                {{post['full_date']}}
+                {% if 'full_date_time' in post %}
+                {{post['full_date_time']}}
                 {% else %}
                 {{post['date']}}
                 {% endif %}

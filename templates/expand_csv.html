@@ -1,0 +1,13 @@
+{% extends  "base.html" %}
+{% block title %}CSV Manupilation{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h3>This page will show your csv in a table</h3>
+{{contents}}
+{% endblock %}

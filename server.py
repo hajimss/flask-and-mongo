@@ -4,11 +4,15 @@ import pymongo
 import dns
 import motor
 import json
+import pandas as pd
 from bson.objectid import ObjectId
 import os
+import sys
+
+print(sys.path)
 
 app = Flask(__name__)
-app.permanent_session_lifetime = timedelta(minutes=5)
+#app.permanent_session_lifetime = timedelta(minutes=5)
 
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -174,20 +178,61 @@ def journal():
 
         elif request.method == 'POST':
             t1 = datetime.now()
-            full_date = t1.strftime("%d") + " " + t1.strftime("%B") + " " + t1.strftime("%Y")
+            full_date_time = t1.strftime("%d %B %Y, %H:%M:%S")
             post = {
                 'content':request.form['content'],
                 'date': t1,
-                'full_date': full_date
+                'full_date_time': full_date_time
             }
             dbResponse = db.posts.insert_one(post)
-            print(post)
+            print(dbResponse)
             flash("New post have been added", "info")
             return redirect(url_for("journal"))
 
     else:
         flash("You are not logged in")
         return redirect(url_for("home"))
+###############################################
+
+app.config["CSV_UPLOADS"] = "/Users/hajimss/Desktop/flask projects/flaskXmongo/flask-and-mongo/uploads"
+
+@app.route("/upload_csv", methods=['GET','POST'])
+def upload_csv():
+    if request.method == 'POST':
+        if request.files:
+            t1 = datetime.now()
+            full_date_time = t1.strftime("%d %B %Y, %H:%M:%S")
+            csv_file = request.files["csv"]
+            csv_name = request.files["csv"].filename
+            # save file to mongo database
+
+            csv_json = {
+                'raw_csv':csv_file.read().decode("utf-8"),
+                'name':csv_name,
+                'date': t1,
+                'full_date_time': full_date_time
+            }
+            #csv.save(os.path.join(app.config["CSV_UPLOADS"], csv.filename))
+            #db.save_file(csv_name,csv_file)
+            dbResponse = db.csv.save(csv_json)
+            print(dbResponse)
+            print("csv saved")
+            redirect(request.url)
+    elif request.method == "GET":
+        files = list(db.csv.find())
+        return render_template("upload_csv.html", files=files)
+    return render_template("upload_csv.html")
+
+###############################################
+
+@app.route("/expand_csv/<csv>", methods=["GET", "POST"])
+def expand_csv(csv):
+    if request.method == "GET":
+        csv_contents = db.csv.find_one({"name":csv})
+        print(csv_contents)
+        return render_template("expand_csv.html", contents=csv_contents["csv"])
+    return render_template("expand_csv.html")
+
 ###############################################
 
 if __name__ == '__main__':
