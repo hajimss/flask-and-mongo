@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/hajimss/Desktop/flask projects/flaskXmongo/flask-and-mongo/f2env"
+VIRTUAL_ENV="/Users/hajimss/Desktop/flask projects/flaskXmongo/flask-and-mongo/f3env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
@@ -54,8 +54,8 @@ fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
     _OLD_VIRTUAL_PS1="${PS1:-}"
-    if [ "x(f2env) " != x ] ; then
-	PS1="(f2env) ${PS1:-}"
+    if [ "x(f3env) " != x ] ; then
+	PS1="(f3env) ${PS1:-}"
     else
     if [ "`basename \"$VIRTUAL_ENV\"`" = "__" ] ; then
         # special case for Aspen magic directories
