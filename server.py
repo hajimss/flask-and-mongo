@@ -1,14 +1,12 @@
 from flask import Flask, Response, stream_with_context, redirect, url_for, request, render_template, session, flash
 from datetime import timedelta, datetime
-import pymongo
 import dns
-import motor
+import pymongo
+import pandas as pd
 import json
 from bson.objectid import ObjectId
 import os
 import sys
-
-print(sys.path)
 
 app = Flask(__name__)
 #app.permanent_session_lifetime = timedelta(minutes=5)
@@ -25,7 +23,8 @@ try:
     db = client.test
 
     client.server_info() # trigger if cannot connect to the db
-except:
+except Exception as ex:
+    print(ex)
     print("ERROR - cannot connect to the DB")
 
 ###############################################

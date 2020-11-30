@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/hajimss/Desktop/flask projects/flaskXmongo/flaskenv/bin/python3" "$0" "$@"
+'''exec' "/Users/hajimss/Desktop/flask projects/flaskXmongo/flask-and-mongo/f2env/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
