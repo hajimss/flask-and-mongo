@@ -1,9 +1,9 @@
 # flask-and-mongo
 
-__Introduction__
+### Introduction
 This application serves as a platform for me to experiment with Flask and the web-development elements that come along with it (eg. Jinja2 templating engine, ). MongoDB is the preferred database since it is a small scale project that does not contain vast amount of collections and data. Furthermore, it is easy to implement with the JSON-like documents.
 
-__Overall Architecture__
+### Overall Architecture
 Overall web app framework: Flask
 Frontend framework: HTML, CSS and Jinja2(injection of python codes & variables)
 Backend database: MongoDB
@@ -11,7 +11,7 @@ Backend database: MongoDB
 WSGI Server: Gunicorn
  - For communication between web servers and the python application
 
-__Endpoints__
+### Endpoints
 Method: POST
 Endpoint: /createuser
 Usage: To create a new user
@@ -45,8 +45,7 @@ Method: GET
 Endpoint: /expand_csv
 Usage: To view the csv in a dataframe
 
-
-__Running App__
+### Running App
 How to run it locally:
 1. Ensure that you have python3 installed. Refer to this documentation for steps to set up python: https://realpython.com/installing-python/
 
