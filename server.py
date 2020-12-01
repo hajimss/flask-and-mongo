@@ -210,7 +210,7 @@ def upload_csv():
             dbResponse = db.csv.save(csv_json)
             print(dbResponse)
             print("csv saved")
-            redirect(request.url)
+            return redirect(url_for("upload_csv"))
     elif request.method == "GET":
         files = list(db.csv.find())
         return render_template("upload_csv.html", files=files)
