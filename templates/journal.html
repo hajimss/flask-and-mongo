@@ -16,7 +16,6 @@
         {% for post in posts|reverse %}
         
         <div class="card text-left">
-            <img class="card-img-top" src="holder.js/100px180/" alt="">
             <div class="card-body">
               <h4 class="card-title">
                 {% if 'full_date_time' in post %}
@@ -38,8 +37,7 @@
           <div class="input-group input-group-lg">
             <input type="text" class="form-control" name="content" placeholder="What have you learnt today?">
           </div>
-          <button type="submit">Post</button>
-          <small id="helpId" class="form-text text-muted">Help text</small>
+          <button type="submit" class="btn btn-primary">Post</button>
         </form>
         </div>
     </div>
