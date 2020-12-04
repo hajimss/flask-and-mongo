@@ -1,6 +1,49 @@
 {% extends "base.html" %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
+
+<div class="jumbotron">
+    <h1 class="display-4">Hi, there!</h1>
+    <p class="lead">A web that uses Flask as a web development framework and MongoDB as the database. Can't get any cooler than that!</p>
+    <hr>
+    <p class="lead">Be sure to check every aspect of this site (ie. my journal entries, list of friends and csv to dataframe conversion). Also, do leave a comment below to tell me about what could or should be improved on and you can even chip in with your own ideas! I'll be sure to credit you for the ideas that get implemented. Thank you!</p>
+  </div>
+<div class="row">
+    <div class="col-sm-8">
+        {% for comment in comments %}
+        <div class="card m-1">
+            <div class="card-header">
+                <h5>{{comment.name}} said:</h5>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{comment.content}}</h4>
+            </div>
+            <div class="card-footer text-muted text-right p-2">
+                {{comment.date}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-4">
+        <div class="card text-left">
+            <form class="p-2" method="POST">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Name:</label>
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Please" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Comment:</label>
+                  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Be nice" name="content">
+                </div>
+                <button type="submit" href="{{url_for("home")}}" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+    </div>
+    
+</div>
+
+  
+
 {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
@@ -8,5 +51,8 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-<h3>This is a website that is used to check your email details</h3>
+
+    
+<h3></h3>
+
 {% endblock %}

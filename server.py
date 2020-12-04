@@ -1,5 +1,7 @@
 from flask import Flask, Response, stream_with_context, redirect, url_for, request, render_template, session, flash
 from datetime import timedelta, datetime
+import requests
+import random as rn
 import dns
 import pymongo
 import pandas as pd
@@ -9,13 +11,14 @@ import os
 import sys
 
 app = Flask(__name__)
-#app.permanent_session_lifetime = timedelta(minutes=5)
+
+app.secret_key = "cigarette"
+app.permanent_session_lifetime = timedelta(minutes=3)
 
 # connection to mongo
 
 try:
     MONGO_URL = os.environ['MONGO_URL']
-    print(MONGO_URL)
     client = pymongo.MongoClient(MONGO_URL)
     db = client.test
 
@@ -28,40 +31,6 @@ except Exception as ex:
 @app.route('/')
 def gohome():
     return redirect(url_for('home'))
-
-###############################################
-@app.route('/getUsers', methods=['GET'])
-def get_user():
-    try:
-        name = request.form['name']
-        dbResponse = list(db.users.find({'name':name}))
-        for user in dbResponse:
-            user['_id'] = str(user['_id'])
-        print(dbResponse)
-        return Response(
-            response=json.dumps(dbResponse),
-            status=200,
-            mimetype='application/json'
-        )
-        """
-        return Response(
-            response=json.dumps({
-                "message":"got it!!!"
-            }),
-            status=200,
-            mimetype='application/json'
-        )
-        """
-    
-    except Exception as ex:
-        print(ex)
-        return Response(
-            response=json.dumps({
-                "message":"cannot get user"
-            }),
-            status=500,
-            mimetype='application/json'
-        )
 
 ###############################################
 @app.route('/createuser', methods=['GET', 'POST', 'DELETE'])
@@ -112,18 +81,37 @@ def deleteuser(name):
 
 ###############################################
 
-@app.route("/home")
+@app.route("/home", methods=["GET", "POST"])
 def home():
-    return render_template("index.html")
+    if request.method == "POST":
+        t1 = datetime.today()
+        date = t1.strftime("%d %B %Y")
+        comment = {
+            'name': request.form['name'],
+            'content': request.form["content"],
+            'date': date
+        }
+        print(comment)
+        response = db.comments.insert_one(comment)
+        print(response)
+        return redirect(url_for("home"))
+    elif request.method == "GET":
+        comments = list(db.comments.find())
+        return render_template("index.html", comments=comments)
 
 ###############################################
 
 # args passed
-@app.route("/user")
+@app.route("/user", methods=["GET"])
 def user():
     if "user" in session:
         user = session["user"]
-        return render_template("user.html", name=user)
+        if request.method == 'GET':
+            response = requests.get('https://cat-fact.herokuapp.com/facts')
+            n = rn.randint(0,285)
+            quote = response.json()['all'][n]['text']
+            print(quote)
+            return render_template("user.html", name=user, quote=quote)
     else:
         flash(f"You are not logged in", "info")
         return redirect(url_for("login"))
@@ -146,7 +134,7 @@ def login():
         session["user"] = user
         flash(f"Successfully logged in, Master {user}", "info")
         return redirect(url_for("user"))
-    else:
+    elif request.method == "GET":
         if "user" in session:
             flash(f"Already logged in!", "info")
             return redirect(url_for("user"))
@@ -185,8 +173,8 @@ def journal():
             return redirect(url_for("journal"))
 
     else:
-        flash("You are not logged in")
-        return redirect(url_for("home"))
+        flash("Please login to see my deepest, darkest secrets.")
+        return redirect(url_for("login"))
 ###############################################
 
 @app.route("/upload_csv", methods=['GET','POST'])
@@ -234,7 +222,7 @@ def expand_csv(csv):
 
 ###############################################
 
-#need help for pandas import
+
 
 ###############################################
 
