@@ -108,9 +108,9 @@ def user():
         user = session["user"]
         if request.method == 'GET':
             response = requests.get('https://cat-fact.herokuapp.com/facts')
-            n = rn.randint(0,285)
-            quote = response.json()['all'][n]['text']
-            print(quote)
+            n = rn.randint(0,4)
+            quote = response.json()[n]['text']
+            #print(quote) 
             return render_template("user.html", name=user, quote=quote)
     else:
         flash(f"You are not logged in", "info")
